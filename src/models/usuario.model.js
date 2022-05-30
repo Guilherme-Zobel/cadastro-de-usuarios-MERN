@@ -10,11 +10,19 @@ const DataSchema = new mongoose.Schema({
     timestamps:true
 });
 
-DataSchema.pre('save',function(next){
+DataSchema.pre('save', function(next){
     if(!this.isModified("senha_usuario")){
         return next();
     }
     this.senha_usuario = bcrypt.hashSync(this.senha_usuario,10);
+    next();
+});
+
+DataSchema.pre('findOneAndUpdate', function(next){
+    var password = this.getUpdate().senha_usuario+'' // +'' é para transformar em string
+    if(password.length<55){
+        this.getUpdate().senha_usuario = bcrypt.hashSync(password,10);
+    }
     next();
 });
 
