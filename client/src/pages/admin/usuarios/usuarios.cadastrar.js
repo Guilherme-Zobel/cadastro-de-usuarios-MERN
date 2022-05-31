@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container';
@@ -20,11 +20,15 @@ const useStyles = makeStyles((theme) => ({
   container: { paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4) },
   paper: { padding: 15, display: 'flex', overflow: 'auto', flexDirection: 'column'},
   formControl: {width: '100%'}
-
 }));
 
 export default function UsuarioCadastrar() {
   const classes = useStyles();
+
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [tipo, setTipo] = useState('');
 
   return (
     <div className={classes.root}>
@@ -45,6 +49,8 @@ export default function UsuarioCadastrar() {
                     label="Nome completo"
                     fullWidth
                     autoComplete="nome"
+                    value={nome}
+                    onChange={ e => setNome(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -55,6 +61,8 @@ export default function UsuarioCadastrar() {
                     label="Email"
                     fullWidth
                     autoComplete="email"
+                    value={email}
+                    onChange={ e => setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12} sm={3}>
@@ -63,8 +71,8 @@ export default function UsuarioCadastrar() {
                   <Select
                     labelId="labelTipo"
                     id="tipo"
-                    // value={age}
-                    // onChange={handleChange}
+                    value={tipo}
+                    onChange={e => setTipo(e.target.value)}
                   >
                     <MenuItem value={1}>Administrador</MenuItem>
                     <MenuItem value={2}>Funcionário</MenuItem>
@@ -80,6 +88,8 @@ export default function UsuarioCadastrar() {
                     label="Senha"
                     fullWidth
                     autoComplete="senha"
+                    value={senha}
+                    onChange={ e => setSenha(e.target.value)}
                   />
                 </Grid>
               </Grid>
