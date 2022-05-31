@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: { display: 'flex' },
@@ -91,6 +92,11 @@ export default function UsuarioCadastrar() {
                     value={senha}
                     onChange={ e => setSenha(e.target.value)}
                   />
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                <Button variant="contained" color="primary">
+                  Primary
+                </Button>
                 </Grid>
               </Grid>
             </Paper>
