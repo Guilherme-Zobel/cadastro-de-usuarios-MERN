@@ -13,31 +13,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  title: {
-    flexGrow: 1,
-  },
+  root: { display: 'flex' },
+  title: { flexGrow: 1 },
   appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: 15,
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  formControl: {
-    width: '100%',
-  }
+  content: { flexGrow: 1, height: '100vh', overflow: 'auto' },
+  container: { paddingTop: theme.spacing(4), paddingBottom: theme.spacing(4) },
+  paper: { padding: 15, display: 'flex', overflow: 'auto', flexDirection: 'column'},
+  formControl: {width: '100%'}
+
 }));
 
 export default function UsuarioCadastrar() {
@@ -76,7 +59,7 @@ export default function UsuarioCadastrar() {
                 </Grid>
                 <Grid item xs={12} sm={3}>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="labelTipo">Tipo</InputLabel>
+                  <InputLabel required id="labelTipo">Tipo</InputLabel>
                   <Select
                     labelId="labelTipo"
                     id="tipo"
