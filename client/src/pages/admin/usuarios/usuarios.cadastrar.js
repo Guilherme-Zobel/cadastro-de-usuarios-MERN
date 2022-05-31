@@ -7,6 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import MenuAdmin from '../../../components/menu-admin'
 import Footer from '../../../components/footer-admin';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  formControl: {
+    width: '100%',
+  }
 }));
 
 export default function UsuarioCadastrar() {
@@ -45,7 +52,7 @@ export default function UsuarioCadastrar() {
         <Grid container spacing={3}>
           <Grid item sm={12}>
             <Paper className={classes.paper}>
-              <h2>Formulário de Cadastro</h2>
+              <h2>Cadastro de Usuários</h2>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={12}>
                   <TextField
@@ -68,18 +75,23 @@ export default function UsuarioCadastrar() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <TextField
-                    required
+                <FormControl className={classes.formControl}>
+                  <InputLabel id="labelTipo">Tipo</InputLabel>
+                  <Select
+                    labelId="labelTipo"
                     id="tipo"
-                    name="tipo"
-                    label="Tipo"
-                    fullWidth
-                    autoComplete="tipo"
-                  />
+                    // value={age}
+                    // onChange={handleChange}
+                  >
+                    <MenuItem value={1}>Administrador</MenuItem>
+                    <MenuItem value={2}>Funcionário</MenuItem>
+                  </Select>
+                </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <TextField
                     required
+                    type="password"
                     id="senha"
                     name="senha"
                     label="Senha"
