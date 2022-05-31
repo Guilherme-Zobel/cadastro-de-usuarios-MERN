@@ -47,24 +47,44 @@ export default function UsuarioCadastrar() {
             <Paper className={classes.paper}>
               <h2>Formulário de Cadastro</h2>
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                     required
-                    id="firstName"
-                    name="firstName"
-                    label="First name"
+                    id="nome"
+                    name="nome"
+                    label="Nome completo"
                     fullWidth
-                    autoComplete="given-name"
+                    autoComplete="nome"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     required
-                    id="lastName"
-                    name="lastName"
-                    label="Last name"
+                    id="email"
+                    name="email"
+                    label="Email"
                     fullWidth
-                    autoComplete="family-name"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <TextField
+                    required
+                    id="tipo"
+                    name="tipo"
+                    label="Tipo"
+                    fullWidth
+                    autoComplete="tipo"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <TextField
+                    required
+                    id="senha"
+                    name="senha"
+                    label="Senha"
+                    fullWidth
+                    autoComplete="senha"
                   />
                 </Grid>
               </Grid>
