@@ -70,7 +70,6 @@ export default function UsuarioCadastrar() {
               </Grid>
             </Paper>
           </Grid>
-          
         </Grid>
           <Box pt={4}>
             <Footer />
