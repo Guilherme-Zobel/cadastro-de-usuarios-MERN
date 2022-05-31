@@ -31,6 +31,18 @@ export default function UsuarioCadastrar() {
   const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState('');
 
+  function handleSubmit() {
+
+    const data = {
+      nome_usuario: nome,
+      email_usuario: email,
+      senha_usuario: senha,
+      tipo_usuario: tipo
+    }
+    
+          console.log(data);
+  }
+  
   return (
     <div className={classes.root}>
       <MenuAdmin title={'USUÁRIOS'}/>
@@ -94,7 +106,7 @@ export default function UsuarioCadastrar() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={12}>
-                <Button variant="contained" color="primary">
+                <Button onClick={handleSubmit} variant="contained" color="primary">
                   Primary
                 </Button>
                 </Grid>
