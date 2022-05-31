@@ -38,13 +38,14 @@ export default function UsuarioCadastrar() {
 
   return (
     <div className={classes.root}>
-      <MenuAdmin />
+      <MenuAdmin title={'USUÁRIOS'}/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
           <Grid item sm={12}>
             <Paper className={classes.paper}>
+              <h2>Formulário de Cadastro</h2>
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={6}>
                   <TextField

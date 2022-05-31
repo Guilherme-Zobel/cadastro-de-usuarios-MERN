@@ -42,7 +42,7 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <MenuAdmin />
+      <MenuAdmin title={'DASHBOARD'}/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
