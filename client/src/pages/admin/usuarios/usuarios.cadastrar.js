@@ -13,6 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 
+import api from '../../../services/api'
+
 const useStyles = makeStyles((theme) => ({
   root: { display: 'flex' },
   title: { flexGrow: 1 },
@@ -31,7 +33,7 @@ export default function UsuarioCadastrar() {
   const [senha, setSenha] = useState('');
   const [tipo, setTipo] = useState('');
 
-  function handleSubmit() {
+  async function handleSubmit() {
 
     const data = {
       nome_usuario: nome,
@@ -39,10 +41,16 @@ export default function UsuarioCadastrar() {
       senha_usuario: senha,
       tipo_usuario: tipo
     }
-    
-          console.log(data);
+
+    const response = await api.post('/api/usuarios', data);
+
+    if(response.status === 200){
+      window.location.href='/admin/usuarios'
+    }else{
+      alert('Erro ao cadastrar o usuário')
+    }
   }
-  
+
   return (
     <div className={classes.root}>
       <MenuAdmin title={'USUÁRIOS'}/>
