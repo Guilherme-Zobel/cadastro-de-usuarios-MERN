@@ -23,7 +23,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Usuários"/>
     </ListItem>
-    <ListItem button component="a" href="admin/produtos">
+    <ListItem button component="a" href="/admin/produtos">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
