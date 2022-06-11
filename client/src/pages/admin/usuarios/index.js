@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -15,6 +15,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import api from '../../../services/api';
+
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +59,16 @@ const rows = [
 export default function UsuarioListagem() {
   const classes = useStyles();
 
+  const [usuarios, setUsuarios] = useState([])
+
+  useEffect(() => {
+    async function loadUsuarios() {
+      const response = await api.get("/api/usuarios");
+      setUsuarios(response.data)
+    }
+    loadUsuarios()
+  }, [])
+
   return (
     <div className={classes.root}>
       <MenuAdmin title={'USUÁRIOS'}/>
@@ -71,23 +85,28 @@ export default function UsuarioListagem() {
                     <Table className={classes.table} size="small" aria-label="a dense table">
                       <TableHead>
                         <TableRow>
-                          <TableCell>Dessert (100g serving)</TableCell>
-                          <TableCell align="right">Calories</TableCell>
-                          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                          <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                          <TableCell>Nome</TableCell>
+                          <TableCell align="center">Email</TableCell>
+                          <TableCell align="center">Tipo</TableCell>
+                          <TableCell align="center">Data de Cadastro</TableCell>
+                          <TableCell align="center">Opções</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {rows.map((row) => (
-                          <TableRow key={row.name}>
+                        {usuarios.map((row) => (
+                          <TableRow key={row._id}>
                             <TableCell component="th" scope="row">
-                              {row.name}
+                              {row.nome_usuario}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.email_usuario}</TableCell>
+                            <TableCell align="right">{row.tipo_usuario}</TableCell>
+                            <TableCell align="right">{row.createdAt}</TableCell>
+                            <TableCell align="right">
+                              <ButtonGroup color="primary" size="small" aria-label="small outlined button group">
+                                <Button color="primary">Atualizar</Button>
+                                <Button color="danger">Excluir</Button>
+                              </ButtonGroup>
+                            </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
