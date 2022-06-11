@@ -13,9 +13,9 @@ const DataSchema = new mongoose.Schema({
 DataSchema.pre('save', function(next){
     if(!this.isModified("senha_usuario")){
         return next();
-    }
+    } // antes de salvar, faz uma função que se o campo "senha_usuário" não foi modificado não precisa fazer nada, passa para a próxima função
     this.senha_usuario = bcrypt.hashSync(this.senha_usuario,10);
-    next();
+    next(); // caso contrário vai ser criptografado a senha (o next é obrigatório para funcionar)
 });
 
 DataSchema.pre('findOneAndUpdate', function(next){
@@ -26,5 +26,15 @@ DataSchema.pre('findOneAndUpdate', function(next){
     next();
 });
 
+DataSchema.methods.isCorrectPassword = function(password, callback) {
+    bcrypt.compare(password , this.senha_usuario, function(err, same){
+        if(err){
+            callback(err)
+        }else{
+            callback(err, same);
+        }
+    })
+}
+
 const usuarios = mongoose.model('Usuarios',DataSchema);
-module.exports = usuarios;
+module.exports = usuarios; // esse model é usado no controller como "Usuario"

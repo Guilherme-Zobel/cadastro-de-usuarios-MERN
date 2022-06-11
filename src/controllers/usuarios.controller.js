@@ -38,19 +38,27 @@ module.exports = {
     },
     async login(req, res) {
         const { email, senha } = req.body;
-         Usuario.findOne({ email_usuario: email, tipo_usuario: 1 }, function(err, user){
+         Usuario.findOne({ email_usuario: email, tipo_usuario: 1 }, function(err, user){ // validação email
             if(err) {
                 console.log(err);
                 res.status(404).json({ erro: "Erro no servidor. Por favor, tente novamente" })
             }else if (!user) {
-                res.status(404).json({ status: 2, error: "E-mail ou senha não conferem"})
-            }else {
-                const payload = { email }
-                const token = jwt.sign(payload, secret, {
-                    expiresIn: '24h'
+                res.status(404).json({ status: 2, error: "E-mail não encontrado no banco de dados"})
+            }else { // se o email tiver valido, agora é validar a senha
+                user.isCorrectPassword(senha, async function (err, same){
+                    if(err){
+                        res.status(200).json({ error: "Erro no servidor, porfavor tente novamente!" })
+                    }else if(!same){ // senha diferente
+                        res.status(200).json({ status: 2, error: "A senha não confere" })
+                    }else { // se deu tudo certo retorna o token
+                        const payload = { email }
+                        const token = jwt.sign(payload, secret, {
+                            expiresIn: '24h'
+                        })
+                        res.cookie('token', token, {httpOnly: true});
+                        res.status(200).json({ status: 1, auth: true, token: token, id_cliente: user._id, user_name: user.nome_usuario });
+                    }
                 })
-                res.cookie('token', token, {httpOnly: true});
-                res.status(200).json({ status: 1, auth: true, token: token, id_cliente: user._id, user_name: user.nome_usuario });
             }
         })
     }

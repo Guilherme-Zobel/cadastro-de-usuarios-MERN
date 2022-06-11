@@ -9,6 +9,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import api from '../../../services/api';
+
+import { login, setIdUsuario, setNomeUsuario } from '../../../services/auth'
 
 function Copyright() {
   return (
@@ -49,9 +52,24 @@ export default function SignIn() {
   const [ email, setEmail ] = useState('');
   const [ senha, setSenha ] = useState('')
 
-  function handleSumbmit() {
+  async function handleSumbmit() {
 
-    alert('Autenticar: ' +email)
+    await api.post('/api/usuarios/login', {email, senha})
+    .then(res => {
+      if(res.status === 200) {
+        if(res.data.status === 1) {
+          login(res.data.token);
+          setIdUsuario(res.data.id_client);
+          setNomeUsuario(res.data.user_name);
+
+          window.location.href= '/admin'
+        }else if(res.data.status===2){
+          alert('Atenção: ' + res.data.error)
+        }
+      }else{
+        alert('Erro no servidor');
+      }
+    })
   }
 
   return (
@@ -64,7 +82,6 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -92,7 +109,6 @@ export default function SignIn() {
             onChange={ (e) => setSenha(e.target.value) }
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
@@ -101,7 +117,6 @@ export default function SignIn() {
           >
             Entrar
           </Button>
-        </form>
       </div>
       <Box mt={8}>
         <Copyright />
