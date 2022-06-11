@@ -102,9 +102,9 @@ export default function UsuarioListagem() {
                             <TableCell align="right">{row.tipo_usuario}</TableCell>
                             <TableCell align="right">{row.createdAt}</TableCell>
                             <TableCell align="right">
-                              <ButtonGroup color="primary" size="small" aria-label="small outlined button group">
+                              <ButtonGroup size="small" aria-label="small outlined button group">
                                 <Button color="primary">Atualizar</Button>
-                                <Button color="danger">Excluir</Button>
+                                <Button color="secondary">Excluir</Button>
                               </ButtonGroup>
                             </TableCell>
                           </TableRow>
