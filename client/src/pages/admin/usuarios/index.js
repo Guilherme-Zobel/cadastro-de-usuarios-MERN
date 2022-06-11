@@ -20,6 +20,8 @@ import api from '../../../services/api';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
+import Chip from '@material-ui/core/Chip';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -98,9 +100,22 @@ export default function UsuarioListagem() {
                             <TableCell component="th" scope="row">
                               {row.nome_usuario}
                             </TableCell>
-                            <TableCell align="right">{row.email_usuario}</TableCell>
-                            <TableCell align="right">{row.tipo_usuario}</TableCell>
-                            <TableCell align="right">{row.createdAt}</TableCell>
+                            <TableCell align="center">{row.email_usuario}</TableCell>
+                            <TableCell align="center">
+                              {
+                                row.tipo_usuario === 1 ? 
+                                  <Chip
+                                    label="Administrador"
+                                    color="primary"
+                                  />
+                                    :
+                                  <Chip
+                                  label="Funcionário"
+                                  color="secondary"
+                                />
+                              }
+                            </TableCell>
+                            <TableCell align="center">{new Date(row.createdAt).toLocaleDateString('pt-br')}</TableCell>
                             <TableCell align="right">
                               <ButtonGroup size="small" aria-label="small outlined button group">
                                 <Button color="primary">Atualizar</Button>
