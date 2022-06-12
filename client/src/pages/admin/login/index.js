@@ -11,6 +11,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import api from '../../../services/api';
 
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 import { login, setIdUsuario, setNomeUsuario, setTipoUsuario } from '../../../services/auth'
 
 function Copyright() {
@@ -51,6 +59,7 @@ export default function SignIn() {
 
   const [ email, setEmail ] = useState('');
   const [ senha, setSenha ] = useState('')
+  const [ showPassword, setShowPassword ] = useState(false)
 
   async function handleSumbmit() {
 
@@ -96,7 +105,7 @@ export default function SignIn() {
             onChange={ (e) => setEmail(e.target.value) }
             autoFocus
           />
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -108,7 +117,28 @@ export default function SignIn() {
             autoComplete="current-password"
             value={ senha }
             onChange={ (e) => setSenha(e.target.value) }
-          />
+          /> */}
+          <FormControl variant="outlined" style={{width:'100%', marginTop:10}}>
+            <InputLabel htmlFor="campoSenha">Digite sua senha</InputLabel>
+            <OutlinedInput
+              id="campoSenha"
+              type={showPassword ? 'text' : 'password'}
+              value={senha}
+              onChange={ e => setSenha(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={e => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              labelWidth={120}
+            />
+          </FormControl>
           <Button
             fullWidth
             variant="contained"
