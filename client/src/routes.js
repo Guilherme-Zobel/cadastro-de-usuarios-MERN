@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch  } from 'react-router-dom';
 
 
 // IMPORTS ADMIN
-import Login from './pages/admin/login/index'
 import DashBoard from './pages/admin/dashboard';
 
 import Produtos from './pages/admin/produtos';
@@ -18,6 +17,9 @@ import UsuarioCadastrar from './pages/admin/usuarios/usuarios.cadastrar';
 // IMPORTS CLIENT
 import Home from './pages/client/home';
 import ProdutoDetails from './pages/client/produtos/produtos.details';
+import Login from './pages/admin/login/index'
+
+import PriveteRoute from './services/wAuth'
 
 
 
@@ -31,15 +33,16 @@ export default function Routes(){
         <Route path="/produtos/:idProduto" exact component={ProdutoDetails} />
 
         {/* Rota Admin */}
-        <Route path="/admin" exact component={DashBoard} />
         <Route path="/admin/login" exact component={Login} />
-        <Route path="/admin/produtos" exact component={Produtos} />
-        <Route path="/admin/produtos/cadastrar" exact component={ProdutoCadatrar} />
-        <Route path="/admin/produtos/editar/:idProduto" exact component={ProdutoEditar} />
+        <PriveteRoute path="/admin" exact component={DashBoard} />
 
-        <Route path="/admin/usuarios" exact component={Usuarios} />
-        <Route path="/admin/usuarios/cadastrar" exact component={UsuarioCadastrar} />
-        <Route path="/admin/usuarios/editar/:idUsuario" exact component={UsuarioEditar} />
+        <PriveteRoute path="/admin/produtos" exact component={Produtos} />
+        <PriveteRoute path="/admin/produtos/cadastrar" exact component={ProdutoCadatrar} />
+        <PriveteRoute path="/admin/produtos/editar/:idProduto" exact component={ProdutoEditar} />
+
+        <PriveteRoute path="/admin/usuarios" exact component={Usuarios} />
+        <PriveteRoute path="/admin/usuarios/cadastrar" exact component={UsuarioCadastrar} />
+        <PriveteRoute path="/admin/usuarios/editar/:idUsuario" exact component={UsuarioEditar} />
       </Switch>
     </BrowserRouter>
   )
