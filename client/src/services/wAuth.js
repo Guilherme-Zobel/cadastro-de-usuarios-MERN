@@ -21,7 +21,7 @@ export default function WAuth ({ component: Component, ...rest }) {
         refreshPage()
       }
       function refreshPage() {
-        window.location.data.reload();
+        window.location.reload()
       }
     }
     verify();
@@ -35,3 +35,17 @@ export default function WAuth ({ component: Component, ...rest }) {
     } />
   )
 }
+
+// OPÇÃO 2 
+
+// function refreshPage() {
+//   window.location.href = '/admin/login'
+// }
+
+// return(
+//   loading?'Carregando...':<Route { ...rest}
+//   render={props => !redirect?(
+//       <Component {...props } />
+//   ): this.refreshPage
+//   } />
+// )
