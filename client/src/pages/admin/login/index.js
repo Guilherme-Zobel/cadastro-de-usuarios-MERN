@@ -19,6 +19,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import { login, setIdUsuario, setNomeUsuario, setTipoUsuario } from '../../../services/auth'
 
 function Copyright() {
@@ -58,11 +60,12 @@ export default function SignIn() {
   const classes = useStyles();
 
   const [ email, setEmail ] = useState('');
-  const [ senha, setSenha ] = useState('')
-  const [ showPassword, setShowPassword ] = useState(false)
+  const [ senha, setSenha ] = useState('');
+  const [ showPassword, setShowPassword ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleSumbmit() {
-
+    setLoading(true);
     await api.post('/api/usuarios/login', {email, senha})
     .then(res => {
       if(res.status === 200) {
@@ -73,13 +76,23 @@ export default function SignIn() {
           setTipoUsuario(res.data.user_type);
 
           window.location.href= '/admin'
-        }else if(res.data.status===2){
-          alert('Atenção: ' + res.data.error)
+        }else if(res.data.status === 2){
+          alert('Atenção: '+res.data.error)
         }
+        setLoading(false);
+
       }else{
         alert('Erro no servidor');
+        setLoading(false);
       }
     })
+  }
+
+  function loadSubmit(){
+    setLoading(true)
+    setTimeout(
+      () => handleSumbmit(), 2000
+    )
   }
 
   return (
@@ -144,9 +157,10 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSumbmit}
+            onClick={loadSubmit}
+            disabled={loading}
           >
-            Entrar
+            {loading ? <CircularProgress /> : "Entrar" }
           </Button>
       </div>
       <Box mt={8}>
