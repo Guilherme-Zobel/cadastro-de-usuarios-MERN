@@ -20,6 +20,7 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Chip from '@material-ui/core/Chip';
+import {getTipoUsuario, getTipoUsuarioLabel} from '../../../functions/static_data'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,18 +104,10 @@ console.log('test');
                             </TableCell>
                             <TableCell align="center">{row.email_usuario}</TableCell>
                             <TableCell align="center">
-                              {
-                                row.tipo_usuario === 1 ? 
                                   <Chip
-                                    label="Administrador"
-                                    color="primary"
+                                    label={getTipoUsuario(row.tipo_usuario)}
+                                    color={getTipoUsuarioLabel(row.tipo_usuario)}
                                   />
-                                    :
-                                  <Chip
-                                  label="Funcionário"
-                                  color="secondary"
-                                />
-                              }
                             </TableCell>
                             <TableCell align="center">{new Date(row.createdAt).toLocaleString('pt-br')}</TableCell>
                             <TableCell align="right">
