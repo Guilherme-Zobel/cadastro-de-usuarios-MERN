@@ -24,7 +24,7 @@ export const getTipoUsuario = (value) => {
   var arr = ['Administrador', 'Gerente', 'Funcionário'];
   return arr[value-1]
 }
-
+// Label(cores)
 export const getTipoUsuarioLabel = (value) => {
   var arr = ['primary', 'default', 'secondary']
   return arr[value -1]

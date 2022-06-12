@@ -7,10 +7,14 @@ import Paper from '@material-ui/core/Paper';
 
 
 import MenuAdmin from '../../../components/menu-admin'
-
-import ImgAdmin from '../../../assets/img/admin.png';
-
 import Footer from '../../../components/footer-admin';
+
+import { getTipoUsuario } from '../../../services/auth'
+
+
+import DashFuncionario from './funcionario'
+import DashGerente from './gerente'
+import DashAdmin from './admin'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +41,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function getDashboard() {
+  if( getTipoUsuario() === '1' ){
+    return <DashAdmin />
+  }else if( getTipoUsuario() === '2' ){
+    return <DashGerente />
+  }else {
+    return <DashFuncionario />
+  }
+}
 export default function Dashboard() {
   const classes = useStyles();
 
@@ -47,7 +60,7 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            <img src={ImgAdmin} alt="logo"/>
+            { getDashboard() }
           </Grid>
           <Box pt={4}>
             <Footer />
